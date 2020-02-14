@@ -6,8 +6,8 @@ public class principal {
 		c.mostrar();
 		Baraja b=new Baraja();
 		b.iniciarBaraja();
-		b.sacarCarta();
+		b.mostar();
 		b.cortar();
-		
+		b.mostar();
 	}
 }

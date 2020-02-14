@@ -8,7 +8,7 @@ public class Baraja {
 	
 	public Baraja() {
 		this.cartas=new Carta[40];
-		this.numCartas=40;
+		this.numCartas=0;
 	}
 	
 	public void iniciarBaraja() {
@@ -62,7 +62,13 @@ public class Baraja {
 			intercambiar(c,d);
 			d++;
 		}
-		
 	}
+		
+	public void mostar() {
+		for(int i=0;i<this.numCartas();i++) {
+			this.cartas[i].mostrar();
+		}
+	}
+		
 	
 }
