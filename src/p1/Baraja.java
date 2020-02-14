@@ -12,7 +12,7 @@ public class Baraja {
 	}
 	
 	public void iniciarBaraja() {
-		
+		this.anadir(new Carta(Palo.BASTOS,1));
 	}
 	
 	public barajar(Baraja b) {
@@ -28,5 +28,10 @@ public class Baraja {
 		Carta c=this.cartas[i1];
 		this.cartas[i1]=this.cartas[i2];
 		this.cartas[i2]=c;
+	}
+	
+	public void anadir(Carta c) {
+		this.cartas[this.numCartas]=c;
+		this.numCartas++;
 	}
 }
