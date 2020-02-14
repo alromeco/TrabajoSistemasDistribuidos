@@ -12,15 +12,21 @@ public class Baraja {
 	}
 	
 	public void iniciarBaraja() {
-		this.anadir(new Carta(Palo.BASTOS,1));
+		for(Palo p : Palo.values()) {
+			for(int i=1;i<8;i++) {
+				this.anadirCarta(new Carta(p,i));
+			}
+			for(int i=10;i<13;i++) {
+				this.anadirCarta(new Carta(p,i));
+			}
+		}
 	}
 	
-	public barajar(Baraja b) {
+	public void barajar(Baraja b) {
 		Random r=new Random();
 		int i=r.nextInt(40);
-		int c=0;
-		while(c<i) {
-			intercambiar(r.nextInt(40),r.nextInt(40));
+		for(int c=0;c<i;c++) {
+			this.intercambiar(r.nextInt(40),r.nextInt(40));
 		}
 	}
 	
@@ -30,8 +36,33 @@ public class Baraja {
 		this.cartas[i2]=c;
 	}
 	
-	public void anadir(Carta c) {
+	public void anadirCarta(Carta c) {
 		this.cartas[this.numCartas]=c;
 		this.numCartas++;
 	}
+	
+	public Carta sacarCarta() {
+		Carta c=this.cartas[this.numCartas];
+		this.numCartas--;
+		return c;
+	}
+	
+	public int numCartas() {
+		return this.numCartas;
+	}
+	
+	public void cortar() {
+		int i=this.numCartas;
+		if(this.numCartas%2!=0) {
+			i++;
+		}
+		i=i/2;
+		int d=i+1;
+		for(int c=0;c<this.numCartas/2;c++) {
+			intercambiar(c,d);
+			d++;
+		}
+		
+	}
+	
 }
