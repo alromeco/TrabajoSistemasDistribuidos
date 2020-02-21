@@ -10,7 +10,12 @@ public abstract class Jugador {
 	}
 	
 	public boolean puedeJugar(Mesa m) {
-		
+		for(int i=0;i<this.carta.size();i++) {
+			if(m.puedeJugar(this.carta.get(i))) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public int numCartas() {
@@ -19,9 +24,13 @@ public abstract class Jugador {
 	
 	public abstract Carta elegirCarta(Mesa m);
 	
-	public abstract void recicbirCarta(Carta c);
+	public abstract void recibirCarta(Carta c);
 	
 	public boolean Finalizado() {
 		return this.numCartas()==0;
+	}
+	
+	public void robar(Baraja b) {
+		this.recibirCarta(b.sacarCarta());
 	}
 }

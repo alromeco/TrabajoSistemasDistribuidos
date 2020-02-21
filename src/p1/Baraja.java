@@ -22,7 +22,7 @@ public class Baraja {
 		}
 	}
 	
-	public void barajar(Baraja b) {
+	public void barajar() {
 		Random r=new Random();
 		int i=r.nextInt(40);
 		for(int c=0;c<i;c++) {
