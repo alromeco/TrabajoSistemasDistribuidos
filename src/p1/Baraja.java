@@ -50,19 +50,6 @@ public class Baraja {
 	public int numCartas() {
 		return this.numCartas;
 	}
-	
-	public void cortar() {
-		int i=this.numCartas;
-		if(this.numCartas%2!=0) {
-			i++;
-		}
-		i=i/2;
-		int d=i+1;
-		for(int c=0;c<this.numCartas/2;c++) {
-			intercambiar(c,d);
-			d++;
-		}
-	}
 		
 	public void mostar() {
 		for(int i=0;i<this.numCartas();i++) {
