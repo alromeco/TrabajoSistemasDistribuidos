@@ -7,7 +7,9 @@ public class principal {
 		Baraja b=new Baraja();
 		b.iniciarBaraja();
 		b.mostar();
-		b.cortar();
+		b.barajar();
 		b.mostar();
+		Mesa m=new Mesa();
+		
 	}
 }
