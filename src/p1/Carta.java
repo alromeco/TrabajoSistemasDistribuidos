@@ -3,12 +3,14 @@ package p1;
 public class Carta {
 	private Palo palo;
 	private int numero;
+	
 	public Carta() {
-		//PRE: 
+		//PRE:
 		//POS:the card has been initialized
 		this.palo=null;
 		this.numero=0;
 	}
+	
 	public Carta(Palo p,int n) {
 		//PRE: 
 		//POS:the card has been initialized

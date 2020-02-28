@@ -1,6 +1,7 @@
 package p1;
 
 import java.util.Deque;
+import java.util.LinkedList;
 
 public class Mesa {
 	private Deque<Carta> Bastos;
@@ -8,24 +9,29 @@ public class Mesa {
 	private Deque<Carta> Copas;
 	private Deque<Carta> Oros;
 	public Mesa() {
-		this.Bastos=null;
-		this.Copas=null;
-		this.Espadas=null;
-		this.Oros=null;
+		this.Bastos=new LinkedList<Carta>();
+		this.Copas=new LinkedList<Carta>();
+		this.Espadas=new LinkedList<Carta>();
+		this.Oros=new LinkedList<Carta>();
 	}
 	public boolean anadir(Carta c) {
 		Deque<Carta> aux;
 		switch(c.getPalo()) {
 			case BASTOS :
 				aux=this.Bastos;
+				break;
 			case ESPADAS :
 				aux=this.Espadas;
+				break;
 			case OROS :
 				aux=this.Oros;
+				break;
 			case COPAS :
 				aux=this.Copas;
+				break;
 			default:
-				aux=null;
+				aux=new LinkedList<Carta>();
+				break;
 		}
 		if(c.getNumero()==5) {
 			aux.add(c);
@@ -85,13 +91,13 @@ public class Mesa {
 		for(Carta c: this.Bastos) {
 			c.mostrar();
 		}
-		for(Carta c: this.Espadas) {
+		for(Carta c:this.Espadas) {
 			c.mostrar();
 		}
-		for(Carta c: this.Oros) {
+		for(Carta c:this.Oros) {
 			c.mostrar();
 		}
-		for(Carta c: this.Copas) {
+		for(Carta c:this.Copas) {
 			c.mostrar();
 		}
 	}

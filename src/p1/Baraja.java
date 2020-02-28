@@ -42,7 +42,7 @@ public class Baraja {
 	}
 	
 	public Carta sacarCarta() {
-		Carta c=this.cartas[this.numCartas];
+		Carta c=this.cartas[this.numCartas-1];
 		this.numCartas--;
 		return c;
 	}
