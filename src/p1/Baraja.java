@@ -56,6 +56,23 @@ public class Baraja {
 			this.cartas[i].mostrar();
 		}
 	}
-		
+	public void repartir(Jugador[] j,int jug) {
+		this.barajar();
+		if(jug<=4) {
+			for(int i=0;i<jug;i++) {
+				for(int n=0;n<10;n++) {
+					j[i].recibirCarta(this.sacarCarta());
+				}
+			}
+		}else {
+			while(this.numCartas!=0) {
+				int x=0;
+				while(x<jug && this.numCartas!=0) {
+					j[x].recibirCarta(this.sacarCarta());
+					x++;
+				}
+			}
+		}
+	}
 	
 }

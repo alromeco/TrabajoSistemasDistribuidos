@@ -33,4 +33,7 @@ public abstract class Jugador {
 	public void robar(Baraja b) {
 		this.recibirCarta(b.sacarCarta());
 	}
+	public boolean tieneCarta(Carta c) {
+		return this.carta.contains(c);
+	}
 }
