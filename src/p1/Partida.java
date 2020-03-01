@@ -30,6 +30,8 @@ public class Partida {
 		Carta c=new Carta(Palo.OROS,5);
 		while(i<jug && !esta) {
 			esta=jugadores[i].tieneCarta(c);
+			if(!esta)
+				i++;
 		}
 		if(esta) {
 			turno=i;
@@ -42,17 +44,26 @@ public class Partida {
 	}
 	public void seguirPartida(int turno,int jug) {
 		Carta c=new Carta();
-		while(!this.jugadores[turno].Finalizado()) {
+		boolean fin=false;
+		while(!fin) {
+			System.out.println("Turno del jugador" + turno+" :");
 			c=jugadores[turno].elegirCarta(this.mesa);
 			if(c==null) {
-				this.jugadores[turno].robar(this.baraja);
+				if(this.baraja.numCartas()!=0) {
+					this.jugadores[turno].robar(this.baraja);
+					System.out.println("Robas carta");
+					System.out.println(" ");
+				}
 			}else {
 				this.mesa.anadir(c);
+				fin=this.jugadores[turno].Finalizado();
 			}
-			turno++;
-			if(turno==jug)
+			if(!fin)
+				turno++;
+			if(turno==jug && !fin)
 				turno=0;
 			this.mesa.mostrar();
+			System.out.println("---------------------");
 		}
 		System.out.println("Gana el jugador "+ turno);
 	}

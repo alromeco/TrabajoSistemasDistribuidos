@@ -6,8 +6,8 @@ public class principal {
 		Baraja b=new Baraja();
 		b.iniciarBaraja();
 		Mesa m=new Mesa();
-		Partida p= new Partida(m,2,2,b);
-		p.empezarPartida(4);
+		Partida p= new Partida(m,1,1,b);
+		p.empezarPartida(2);
 		
 	}
 }

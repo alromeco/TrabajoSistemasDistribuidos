@@ -24,7 +24,7 @@ public class Baraja {
 	
 	public void barajar() {
 		Random r=new Random();
-		int i=r.nextInt(40);
+		int i=r.nextInt(200);
 		for(int c=0;c<i;c++) {
 			this.intercambiar(r.nextInt(40),r.nextInt(40));
 		}

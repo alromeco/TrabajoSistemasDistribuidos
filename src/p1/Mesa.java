@@ -61,22 +61,32 @@ public class Mesa {
 		switch(c.getPalo()) {
 			case BASTOS :
 				aux=this.Bastos;
+				break;
 			case ESPADAS :
 				aux=this.Espadas;
+				break;
 			case OROS :
 				aux=this.Oros;
+				break;
 			default:
 				aux=this.Copas;
+				break;
 		}
 		if(c.getNumero()==5) {
 			return true;
 		}else {
 			if(c.getNumero()<5) {
+				if(aux.size()==0) {
+					return false;
+				}
 				if(c.getNumero()+1==aux.getFirst().getNumero()) {
 					return true;
 				}
 				return false;
 			}else {
+				if(aux.size()==0) {
+					return false;
+				}
 				if(c.getNumero()-1==aux.getLast().getNumero()) {
 					return true;
 				}
