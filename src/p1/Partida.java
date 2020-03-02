@@ -6,13 +6,11 @@ public class Partida {
 	private Mesa mesa;
 	private Jugador[] jugadores;
 	private Baraja baraja;
-	private int turno;
 	
 	public Partida(Mesa m, int pers,int cpu, Baraja b) {
 		this.mesa=m;
 		this.jugadores=new Jugador[pers+cpu];
 		this.baraja=b;
-		this.turno=0;
 		for(int i=0;i<pers;i++) {
 			Jugador j=new Persona();
 			this.jugadores[i]=j;
@@ -35,6 +33,11 @@ public class Partida {
 		}
 		if(esta) {
 			turno=i;
+			System.out.println("Turno del jugador" + turno +" , juega el 5 de oros:");
+			this.mesa.anadir(jugadores[i].cincoOros(c));
+			this.mesa.mostrar();
+			System.out.println("---------------------");
+			turno++;
 		}else {
 			Random r=new Random();
 			int a=r.nextInt(jug-1);

@@ -41,4 +41,7 @@ public abstract class Jugador {
 	public boolean tieneCarta(Carta c) {
 		return this.carta.contains(c);
 	}
+	public Carta cincoOros(Carta c) {
+		return this.carta.remove(this.carta.indexOf(c));
+	}
 }
