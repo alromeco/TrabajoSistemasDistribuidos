@@ -8,6 +8,8 @@ public class Partida {
 	private Baraja baraja;
 	
 	public Partida(Mesa m, int pers,int cpu, Baraja b) {
+		//PRE: La mesa m y la Baraja b deben estar creadas y b no debe estar vacía. pers y cpu deben ser enteros positivos o 0
+		//POS: Crea una Partida con Mesa m, pers personas reales, cpu jugadores de la cpu y baraja b.
 		this.mesa=m;
 		this.jugadores=new Jugador[pers+cpu];
 		this.baraja=b;
@@ -20,7 +22,10 @@ public class Partida {
 			this.jugadores[i]=j;
 		}
 	}
+	
 	public void empezarPartida(int jug) {
+		//PRE: La Partida debe estar creada y jug debe ser un entero mayor que 1.
+		//POS: Empieza la partida colocando el 5 de oros y, si no lo tiene nadie, otro 5.
 		int i;
 		int turno=0;
 		boolean esta=false;
@@ -50,7 +55,11 @@ public class Partida {
 		}
 		this.seguirPartida(turno,jug);
 	}
+	
 	public void seguirPartida(int turno,int jug) {
+		//PRE: La partida debe estar empezada, turno es el turno del jugador al que le toca y jug el número de jugadores.
+		//POS: Los Jugadores van colocando cartas en la mesa, siguiendo las normas del cinquillo, 
+		//			hasta que alguien se queda sin cartas, que es el ganador.
 		Carta c=new Carta();
 		boolean fin=false;
 		while(!fin) {

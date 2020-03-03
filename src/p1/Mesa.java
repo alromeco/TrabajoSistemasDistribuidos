@@ -8,13 +8,19 @@ public class Mesa {
 	private Deque<Carta> Espadas;
 	private Deque<Carta> Copas;
 	private Deque<Carta> Oros;
+	
 	public Mesa() {
+		//PRE:
+		//POS: Crea una mesa.
 		this.Bastos=new LinkedList<Carta>();
 		this.Copas=new LinkedList<Carta>();
 		this.Espadas=new LinkedList<Carta>();
 		this.Oros=new LinkedList<Carta>();
 	}
+	
 	public boolean anadir(Carta c) {
+		//PRE: La mesa debe estar creada.
+		//POS: Añade la Carta c a la mesa.
 		Deque<Carta> aux;
 		switch(c.getPalo()) {
 			case BASTOS :
@@ -56,7 +62,10 @@ public class Mesa {
 			}
 		}
 	}
+	
 	public boolean puedeJugar(Carta c) {
+		//PRE: La mesa debe estar creada.
+		//POS: Devuelve cierto si puede colocar la Carta c en la mesa.
 		Deque<Carta> aux;
 		switch(c.getPalo()) {
 			case BASTOS :
@@ -97,7 +106,10 @@ public class Mesa {
 			}
 		}
 	}
+	
 	public void mostrar() {
+		//PRE: La mesa debe estar creada.
+		//POS: Muestra por pantalla las cartas de la Mesa, ordenadas por palos.
 		System.out.println("Mesa:");
 		for(Carta c: this.Bastos) {
 			c.mostrar();

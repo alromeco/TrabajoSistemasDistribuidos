@@ -6,30 +6,33 @@ public class Carta {
 	
 	public Carta() {
 		//PRE:
-		//POS:the card has been initialized
+		//POS: Inicia una carta vacía.
 		this.palo=null;
 		this.numero=0;
 	}
 	
 	public Carta(Palo p,int n) {
-		//PRE: 
-		//POS:the card has been initialized
+		//PRE: P es un Palo y n es un entero entre 1-7(incluidos) y 10, 11 o 12
+		//POS: Inicia una carta con Palo p y número n.
 		this.palo=p;
 		this.numero=n;
 	}
+	
 	public Palo getPalo() {
-		//PRE: the card is already initialized
-		//POS: it returns the suit of the card
+		//PRE: La Carta debe estar creada.
+		//POS: Devuelve el Palo de la Carta.
 		return this.palo;
 	}
+	
 	public int getNumero() {
-		//PRE: the card is already initialized
-		//POS: it returns the number of the card
+		//PRE: La Carta debe estar creada.
+		//POS: Devuelve el número de la Carta.
 		return this.numero;
 	}
+	
 	public void mostrar() {
-		//PRE: the card is already initialized
-		//POS: it shows the card
+		//PRE: La Carta debe estar creada.
+		//POS: Muestra por pantalla la Carta.
 		System.out.println("[ "+this.numero+" de "+this.palo+" ]");	
 	}
 	

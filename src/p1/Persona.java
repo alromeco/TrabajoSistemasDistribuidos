@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class Persona extends Jugador{
 	public Carta elegirCarta(Mesa m) {
+		//PRE: El jugador debe estar creado como Persona. 
+		//POS: Muestra las cartas al Jugador y, si puede jugar, pregunta qué Carta quiere jugar y la devuelve.
+		//			En caso de que no pueda jugar, devuelve null.
 		this.mostrar();
 		if(this.puedeJugar(m)) {
 			System.out.println("Elige la carta que quieres jugar");
