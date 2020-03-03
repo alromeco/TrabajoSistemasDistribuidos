@@ -21,25 +21,28 @@ public class Partida {
 		}
 	}
 	public void empezarPartida(int jug) {
-		int i=0;
-		int turno;
+		int i;
+		int turno=0;
 		boolean esta=false;
 		this.baraja.repartir(this.jugadores, jug);
 		Carta c=new Carta(Palo.OROS,5);
-		while(i<jug && !esta) {
-			//No he logrado descubrir que falla aqui porque cuando pruebo a crear un jugador
-			//en la funcion principal, tieneCarta funciona perfectamente, pero aqui siempre devuelve false
-			esta=jugadores[i].tieneCarta(c);
-			if(!esta)
-				i++;
+		while(turno<jug && !esta) {
+			esta=jugadores[turno].tieneCarta(c);
+			if(!esta) {
+				turno++;
+			}
 		}
 		if(esta) {
-			turno=i;
-			System.out.println("Turno del jugador" + turno +" , juega el 5 de oros:");
-			this.mesa.anadir(jugadores[i].cincoOros(c));
+			i=turno+1;
+			System.out.println("Turno del jugador " + i +" , juega el 5 de oros:");
+			this.mesa.anadir(jugadores[turno].cincoOros());
 			this.mesa.mostrar();
 			System.out.println("---------------------");
-			turno++;
+			if(turno==jug-1) {
+				turno=0;
+			}else {
+				turno++;
+			}
 		}else {
 			Random r=new Random();
 			int a=r.nextInt(jug-1);

@@ -22,5 +22,6 @@ public class principal {
 		System.out.println("Empieza la partida:");
 		System.out.println("-----------------------------");
 		p.empezarPartida(j1+j2);
+		
 	}
 }

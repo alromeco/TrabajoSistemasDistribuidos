@@ -49,10 +49,21 @@ public abstract class Jugador {
 		this.recibirCarta(b.sacarCarta());
 	}
 	public boolean tieneCarta(Carta c) {
-		return this.carta.contains(c);
+		for(int i=0;i<this.numCartas();i++) {
+			if(this.carta.get(i).getPalo().equals(c.getPalo()) && this.carta.get(i).getNumero()==(c.getNumero())) {
+				return true;
+			}
+		}
+		return false;
 	}
-	public Carta cincoOros(Carta c) {
-		return this.carta.remove(this.carta.indexOf(c));
+	public Carta cincoOros() {
+		for(int i=0;i<this.numCartas();i++) {
+			if(this.carta.get(i).getPalo().equals(Palo.OROS) && this.carta.get(i).getNumero()==5) {
+				this.numCartas--;
+				return this.carta.remove(i);
+			}
+		}
+		return null;
 	}
 	public void mostrar() {
 		for(int i=0;i<this.carta.size();i++) {
