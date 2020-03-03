@@ -4,18 +4,18 @@ import java.util.Deque;
 import java.util.LinkedList;
 
 public class Table {
-	private Deque<Card> Bastos;
-	private Deque<Card> Espadas;
-	private Deque<Card> Copas;
-	private Deque<Card> Oros;
+	private Deque<Card> clubs;
+	private Deque<Card> swords;
+	private Deque<Card> cups;
+	private Deque<Card> golds;
 	
 	public Table() {
 		//PRE:
 		//POS: It creates a table.
-		this.Bastos=new LinkedList<Card>();
-		this.Copas=new LinkedList<Card>();
-		this.Espadas=new LinkedList<Card>();
-		this.Oros=new LinkedList<Card>();
+		this.clubs=new LinkedList<Card>();
+		this.cups=new LinkedList<Card>();
+		this.swords=new LinkedList<Card>();
+		this.golds=new LinkedList<Card>();
 	}
 	
 	public boolean add(Card c) {
@@ -23,17 +23,17 @@ public class Table {
 		//POS: It adds the card c to the table.
 		Deque<Card> aux;
 		switch(c.getStick()) {
-			case BASTOS :
-				aux=this.Bastos;
+			case CLUBS :
+				aux=this.clubs;
 				break;
-			case ESPADAS :
-				aux=this.Espadas;
+			case SWORDS :
+				aux=this.swords;
 				break;
-			case OROS :
-				aux=this.Oros;
+			case GOLDS :
+				aux=this.golds;
 				break;
-			case COPAS :
-				aux=this.Copas;
+			case CUPS :
+				aux=this.cups;
 				break;
 			default:
 				aux=new LinkedList<Card>();
@@ -68,17 +68,17 @@ public class Table {
 		//POS: It returns true if you can play the card c in this table.
 		Deque<Card> aux;
 		switch(c.getStick()) {
-			case BASTOS :
-				aux=this.Bastos;
+			case CLUBS :
+				aux=this.clubs;
 				break;
-			case ESPADAS :
-				aux=this.Espadas;
+			case SWORDS :
+				aux=this.swords;
 				break;
-			case OROS :
-				aux=this.Oros;
+			case GOLDS :
+				aux=this.golds;
 				break;
 			default:
-				aux=this.Copas;
+				aux=this.cups;
 				break;
 		}
 		if(c.getNumber()==5) {
@@ -111,16 +111,16 @@ public class Table {
 		//PRE: The table must be already created.
 		//POS: It shows the cards on the table, ordered by sticks.
 		System.out.println("Table:");
-		for(Card c: this.Bastos) {
+		for(Card c: this.clubs) {
 			c.show();
 		}
-		for(Card c:this.Espadas) {
+		for(Card c:this.swords) {
 			c.show();
 		}
-		for(Card c:this.Oros) {
+		for(Card c:this.golds) {
 			c.show();
 		}
-		for(Card c:this.Copas) {
+		for(Card c:this.cups) {
 			c.show();
 		}
 	}

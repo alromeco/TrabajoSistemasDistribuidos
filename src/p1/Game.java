@@ -24,13 +24,13 @@ public class Game {
 	}
 	
 	public void startGame(int playrs) {
-		//PRE: La Partida debe estar creada y jug debe ser un entero mayor que 1.
-		//POS: Empieza la partida colocando el 5 de oros y, si no lo tiene nadie, otro 5.
+		//PRE: The Game must be crated and playrs an integer higher than 1.
+		//POS: The Game starts putting the 5 of golds. If anyone has it, then any 5 starts.
 		int i;
 		int turn=0;
 		boolean is=false;
 		this.deck.deal(this.players, playrs);
-		Card c=new Card(Stick.OROS,5);
+		Card c=new Card(Stick.GOLDS,5);
 		while(turn<playrs && !is) {
 			is=players[turn].hasCard(c);
 			if(!is) {
@@ -39,7 +39,7 @@ public class Game {
 		}
 		if(is) {
 			i=turn+1;
-			System.out.println("Player "+i+" turn "+" , You are starting with the 5 of oros:");
+			System.out.println("Player "+i+" turn "+" , You are starting with the 5 of golds:");
 			this.table.add(players[turn].fiveGolds());
 			this.table.show();
 			System.out.println("---------------------");
@@ -57,12 +57,12 @@ public class Game {
 	}
 	
 	public void continueGame(int turn,int playrs) {
-		//PRE: La partida debe estar empezada, turno es el turno del jugador al que le toca y jug el número de jugadores.
-		//POS: Los Jugadores van colocando cartas en la mesa, siguiendo las normas del cinquillo, 
-		//			hasta que alguien se queda sin cartas, que es el ganador.
+		//PRE: The game must be started, turn is the turn of the player that plays now and playrs the number of players.
+		//POS: Players put cards on the deck, following the rules of cinquillo, 
+		//			until someone runs out of cards, who is the winner.
 		Card c=new Card();
-		boolean fin=false;
-		while(!fin) {
+		boolean end=false;
+		while(!end) {
 			int x=turn+1;
 			System.out.println("Player "+x+" turn:");
 			c=players[turn].chooseCard(this.table);
@@ -74,11 +74,11 @@ public class Game {
 				}
 			}else {
 				this.table.add(c);
-				fin=this.players[turn].ended();
+				end=this.players[turn].ended();
 			}
-			if(!fin)
+			if(!end)
 				turn++;
-			if(turn==playrs && !fin)
+			if(turn==playrs && !end)
 				turn=0;
 			this.table.show();
 			System.out.println("---------------------");

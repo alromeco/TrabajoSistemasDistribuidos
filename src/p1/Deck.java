@@ -16,12 +16,12 @@ public class Deck {
 	public void startDeck() {
 		//PRE: The deck must be already created.
 		//POS: It adds the 40 cards to the deck.
-		for(Stick p : Stick.values()) {
+		for(Stick s : Stick.values()) {
 			for(int i=1;i<8;i++) {
-				this.addCard(new Card(p,i));
+				this.addCard(new Card(s,i));
 			}
 			for(int i=10;i<13;i++) {
-				this.addCard(new Card(p,i));
+				this.addCard(new Card(s,i));
 			}
 		}
 	}
