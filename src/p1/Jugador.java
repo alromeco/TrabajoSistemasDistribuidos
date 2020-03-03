@@ -1,7 +1,6 @@
 package p1;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Jugador {
@@ -28,7 +27,19 @@ public abstract class Jugador {
 	
 	public abstract Carta elegirCarta(Mesa m);
 	
-	public abstract void recibirCarta(Carta c);
+	public void recibirCarta(Carta c) {
+		if(this.numCartas()==0) {
+			this.carta.add(c);
+			this.numCartas++;
+		}else {
+			int i=0;
+			while(this.numCartas()>i && this.carta.get(i).getNumero()>c.getNumero()) {
+				i++;
+			}
+			this.carta.add(i,c);
+			this.numCartas++;
+		}
+	}
 	
 	public boolean Finalizado() {
 		return this.numCartas()==0;
@@ -36,12 +47,18 @@ public abstract class Jugador {
 	
 	public void robar(Baraja b) {
 		this.recibirCarta(b.sacarCarta());
-		this.numCartas++;
 	}
 	public boolean tieneCarta(Carta c) {
 		return this.carta.contains(c);
 	}
 	public Carta cincoOros(Carta c) {
 		return this.carta.remove(this.carta.indexOf(c));
+	}
+	public void mostrar() {
+		for(int i=0;i<this.carta.size();i++) {
+			int x=i+1;
+			System.out.println("Carta número "+ x);
+			this.carta.get(i).mostrar();
+		}
 	}
 }

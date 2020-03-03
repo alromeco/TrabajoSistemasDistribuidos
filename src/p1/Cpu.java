@@ -12,18 +12,4 @@ public class Cpu extends Jugador{
 		}
 		return null;
 	}
-	
-	public void recibirCarta(Carta c) {
-		if(this.numCartas()==0) {
-			this.carta.add(c);
-			this.numCartas++;
-		}else {
-			int i=0;
-			while(this.numCartas()>i && this.carta.get(i).getNumero()>c.getNumero()) {
-				i++;
-			}
-			this.carta.add(i,c);
-			this.numCartas++;
-		}
-	}
 }

@@ -27,6 +27,8 @@ public class Partida {
 		this.baraja.repartir(this.jugadores, jug);
 		Carta c=new Carta(Palo.OROS,5);
 		while(i<jug && !esta) {
+			//No he logrado descubrir que falla aqui porque cuando pruebo a crear un jugador
+			//en la funcion principal, tieneCarta funciona perfectamente, pero aqui siempre devuelve false
 			esta=jugadores[i].tieneCarta(c);
 			if(!esta)
 				i++;
@@ -49,7 +51,8 @@ public class Partida {
 		Carta c=new Carta();
 		boolean fin=false;
 		while(!fin) {
-			System.out.println("Turno del jugador" + turno+" :");
+			int x=turno+1;
+			System.out.println("Turno del jugador " + x +":");
 			c=jugadores[turno].elegirCarta(this.mesa);
 			if(c==null) {
 				if(this.baraja.numCartas()!=0) {
@@ -68,6 +71,7 @@ public class Partida {
 			this.mesa.mostrar();
 			System.out.println("---------------------");
 		}
-		System.out.println("Gana el jugador "+ turno);
+		int x=turno+1;
+		System.out.println("Gana el jugador "+ x);
 	}
 }

@@ -98,6 +98,7 @@ public class Mesa {
 		}
 	}
 	public void mostrar() {
+		System.out.println("Mesa:");
 		for(Carta c: this.Bastos) {
 			c.mostrar();
 		}
