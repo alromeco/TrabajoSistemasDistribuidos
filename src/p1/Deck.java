@@ -8,14 +8,14 @@ public class Deck {
 	
 	public Deck() {
 		//PRE:
-		//POS: Crea una Baraja vacía
+		//POS: It creates an empty deck.
 		this.cards=new Card[40];
 		this.numCards=0;
 	}
 	
 	public void startDeck() {
-		//PRE: La baraja debe estar creada.
-		//POS: Asigna las 40 cartas a la baraja ya creada.
+		//PRE: The deck must be already created.
+		//POS: It adds the 40 cards to the deck.
 		for(Stick p : Stick.values()) {
 			for(int i=1;i<8;i++) {
 				this.addCard(new Card(p,i));
@@ -27,8 +27,8 @@ public class Deck {
 	}
 	
 	public void shuffle() {
-		//PRE: La baraja debe estar creada e iniciada.
-		//POS: Cambia de posición algunas cartas de la baraja.
+		//PRE: The deck must be already created and initialized.
+		//POS: It chages the position of the cards.
 		Random r=new Random();
 		int i=r.nextInt(200);
 		for(int c=0;c<i;c++) {
@@ -37,44 +37,44 @@ public class Deck {
 	}
 	
 	public void exchange(int i1, int i2) {
-		//PRE: La baraja debe estar iniciada y creada. i1 e i2 son dos enteros positivos.
-		//POS: Intercambia de posicion las cartas de la baraja en posición i1 e i2.
+		//PRE: The deck must be already created and initialized. i1 and i2 are positive integers.
+		//POS: It changes the position of the cards located in the deck at i1 and i2.
 		Card c=this.cards[i1];
 		this.cards[i1]=this.cards[i2];
 		this.cards[i2]=c;
 	}
 	
 	public void addCard(Card c) {
-		//PRE: La Baraja debe estar creada y c es una Carta
-		//POS: Añade la Carta c a la Baraja
+		//PRE: The deck must be already created and c is a Card.
+		//POS: It adds the card to the deck.
 		this.cards[this.numCards]=c;
 		this.numCards++;
 	}
 	
 	public Card takeCard() {
-		//PRE: La Baraja debe estar creada y no estar vacía
-		//POS: Saca de la baraja la última carta.
+		//PRE: The deck must be already created and not empty.
+		//POS: It takes off the deck the last card.
 		Card c=this.cards[this.numCards-1];
 		this.numCards--;
 		return c;
 	}
 	
 	public int numCards() {
-		//PRE: La Baraja debe estar creada.
-		//POS: Devuelve el número de Cartas qeu quedan en la Baraja.
+		//PRE: The deck must be already created.
+		//POS: It returns the number of remaining cards of the deck.
 		return this.numCards;
 	}
 		
 	public void show() {
-		//PRE: La Baraja debe estar creada.
-		//POS: Muestra por pantalla las cartas que hay en la Baraja.
+		//PRE: The deck must be already created.
+		//POS: It shows the cards of the deck.
 		for(int i=0;i<this.numCards();i++) {
 			this.cards[i].show();
 		}
 	}
 	public void deal(Player[] p,int players) {
-		//PRE: La Baraja debe estar creada, j es un vector de Jugadores y jug es el número de jugadores.
-		//POS: Reparte las cartas de la Baraja entre los Jugadores.
+		//PRE: The deck must be already created., j is an array of players and players is the number of players.
+		//POS: Deal the cards between the players.
 		this.shuffle();
 		if(players<=4) {
 			for(int i=0;i<players;i++) {

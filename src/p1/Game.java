@@ -39,7 +39,7 @@ public class Game {
 		}
 		if(is) {
 			i=turn+1;
-			System.out.println("Turno del jugador " + i +" , juega el 5 de oros:");
+			System.out.println("Player "+i+" turn "+" , You are starting with the 5 of oros:");
 			this.table.add(players[turn].fiveGolds());
 			this.table.show();
 			System.out.println("---------------------");
@@ -64,12 +64,12 @@ public class Game {
 		boolean fin=false;
 		while(!fin) {
 			int x=turn+1;
-			System.out.println("Turno del jugador " + x +":");
+			System.out.println("Player "+x+" turn:");
 			c=players[turn].chooseCard(this.table);
 			if(c==null) {
 				if(this.deck.numCards()!=0) {
 					this.players[turn].steal(this.deck);
-					System.out.println("Robas carta");
+					System.out.println("You take a card of the deck.");
 					System.out.println(" ");
 				}
 			}else {
@@ -84,6 +84,6 @@ public class Game {
 			System.out.println("---------------------");
 		}
 		int x=turn+1;
-		System.out.println("Gana el jugador "+ x);
+		System.out.println("Player "+ x + " wins");
 	}
 }

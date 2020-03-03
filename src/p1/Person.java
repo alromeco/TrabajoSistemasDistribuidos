@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Person extends Player{
 	public Card chooseCard(Table t) {
-		//PRE: El jugador debe estar creado como Persona. 
-		//POS: Muestra las cartas al Jugador y, si puede jugar, pregunta qué Carta quiere jugar y la devuelve.
-		//			En caso de que no pueda jugar, devuelve null.
+		//PRE: The player must be already created as Person.
+		//POS: It shows the player's cards and, if he can play, asks what card he wants to play with and returns it, removing it from his cards.
+		//			In case that he can not play, it returns null.
 		this.show();
 		if(this.canPlay(t)) {
 			System.out.println("Elige la carta que quieres jugar");

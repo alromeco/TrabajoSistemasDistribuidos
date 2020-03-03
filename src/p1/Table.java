@@ -11,7 +11,7 @@ public class Table {
 	
 	public Table() {
 		//PRE:
-		//POS: Crea una mesa.
+		//POS: It creates a table.
 		this.Bastos=new LinkedList<Card>();
 		this.Copas=new LinkedList<Card>();
 		this.Espadas=new LinkedList<Card>();
@@ -19,8 +19,8 @@ public class Table {
 	}
 	
 	public boolean add(Card c) {
-		//PRE: La mesa debe estar creada.
-		//POS: Añade la Carta c a la mesa.
+		//PRE: The table must be already created.
+		//POS: It adds the card c to the table.
 		Deque<Card> aux;
 		switch(c.getStick()) {
 			case BASTOS :
@@ -64,8 +64,8 @@ public class Table {
 	}
 	
 	public boolean canPlay(Card c) {
-		//PRE: La mesa debe estar creada.
-		//POS: Devuelve cierto si puede colocar la Carta c en la mesa.
+		//PRE: The table must be already created.
+		//POS: It returns true if you can play the card c in this table.
 		Deque<Card> aux;
 		switch(c.getStick()) {
 			case BASTOS :
@@ -108,9 +108,9 @@ public class Table {
 	}
 	
 	public void show() {
-		//PRE: La mesa debe estar creada.
-		//POS: Muestra por pantalla las cartas de la Mesa, ordenadas por palos.
-		System.out.println("Mesa:");
+		//PRE: The table must be already created.
+		//POS: It shows the cards on the table, ordered by sticks.
+		System.out.println("Table:");
 		for(Card c: this.Bastos) {
 			c.show();
 		}
