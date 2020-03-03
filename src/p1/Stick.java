@@ -1,5 +1,5 @@
 package p1;
 
-public enum Palo {
+public enum Stick {
 	BASTOS,ESPADAS,COPAS,OROS;
 }

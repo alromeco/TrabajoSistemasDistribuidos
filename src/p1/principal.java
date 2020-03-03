@@ -15,13 +15,13 @@ public class principal {
 				System.out.println("Se requieren un mínimo de 2 jugadores para empezar la partida.");
 			}
 		}
-		Baraja b=new Baraja();
-		b.iniciarBaraja();
-		Mesa m=new Mesa();
-		Partida p= new Partida(m,j1,j2,b);
+		Deck b=new Deck();
+		b.startDeck();
+		Table m=new Table();
+		Game p= new Game(m,j1,j2,b);
 		System.out.println("Empieza la partida:");
 		System.out.println("-----------------------------");
-		p.empezarPartida(j1+j2);
+		p.startGame(j1+j2);
 		
 	}
 }

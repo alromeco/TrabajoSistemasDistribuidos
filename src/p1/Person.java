@@ -2,20 +2,20 @@ package p1;
 
 import java.util.Scanner;
 
-public class Persona extends Jugador{
-	public Carta elegirCarta(Mesa m) {
+public class Person extends Player{
+	public Card chooseCard(Table t) {
 		//PRE: El jugador debe estar creado como Persona. 
 		//POS: Muestra las cartas al Jugador y, si puede jugar, pregunta qué Carta quiere jugar y la devuelve.
 		//			En caso de que no pueda jugar, devuelve null.
-		this.mostrar();
-		if(this.puedeJugar(m)) {
+		this.show();
+		if(this.canPlay(t)) {
 			System.out.println("Elige la carta que quieres jugar");
 			Scanner teclado = new Scanner(System.in);
 			int i = teclado.nextInt();
-			while(this.puedeJugar(m)) {
-				if(i<=this.numCartas && i>0 && m.puedeJugar(this.carta.get(i-1))) {
-					this.numCartas--;
-					return this.carta.remove(i-1);
+			while(this.canPlay(t)) {
+				if(i<=this.numCards && i>0 && t.canPlay(this.cards.get(i-1))) {
+					this.numCards--;
+					return this.cards.remove(i-1);
 				}else {
 					System.out.println("No se puede jugar esa carta, elige otra");
 					i = teclado.nextInt();
