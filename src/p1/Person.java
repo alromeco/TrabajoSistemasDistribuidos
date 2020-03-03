@@ -9,7 +9,7 @@ public class Person extends Player{
 		//			In case that he can not play, it returns null.
 		this.show();
 		if(this.canPlay(t)) {
-			System.out.println("Elige la carta que quieres jugar");
+			System.out.println("Choose the card that you want to play");
 			Scanner teclado = new Scanner(System.in);
 			int i = teclado.nextInt();
 			while(this.canPlay(t)) {
@@ -17,12 +17,12 @@ public class Person extends Player{
 					this.numCards--;
 					return this.cards.remove(i-1);
 				}else {
-					System.out.println("No se puede jugar esa carta, elige otra");
+					System.out.println("You can't play that card, choose another");
 					i = teclado.nextInt();
 				}
 			}
 		}
-		System.out.println("No puedes jugar ninguna de tus cartas");
+		System.out.println("You can't play any of your cards");
 		return null;
 	}
 }
