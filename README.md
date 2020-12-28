@@ -1,2 +1,1 @@
-# Practica1
-Ficheros para la práctica 1
+# Trabajo sistemas distribuidos Francisco Javier Olavarrieta y Álvaro Romero
