@@ -49,7 +49,11 @@ public class ManejadorClientes implements Runnable{
 		int i = this.inputStream[0].readInt();
 		int x = this.inputStream[1].readInt();
 		if(i==1 && x==1) {
+			for(int y=0;y<2;y++) {
+				this.outputStream[y].writeInt(1);
+			}
 			this.jugar();
+			
 		} else {
 			isConnected=false;
 		}
@@ -59,85 +63,99 @@ public class ManejadorClientes implements Runnable{
 		
 	
 	private void jugar() {
-		Deck b=new Deck();
-		b.startDeck();
-		Table table=new Table();
-		for(int i=0;i<2;i++) {
-			Player j=new Person();
-			this.players[i]=j;
-		}
-		int i;
-		int turn=0;
-		boolean is=false;
-		b.deal(this.players, 2);
-		Card c=new Card(Stick.GOLDS,5);
-		while(turn<2 && !is) {
-			is=players[turn].hasCard(c);
-			if(!is) {
-				turn++;
+		try {
+			Deck b=new Deck();
+			b.startDeck();
+			Table table=new Table();
+			for(int i=0;i<2;i++) {
+				Player j=new Person();
+				this.players[i]=j;
 			}
-		}
-		if(is) {
-			i=turn+1;
-			try {
-				this.outputStream[turn].writeChars("Player "+i+" turn "+" , You are starting with the 5 of golds:");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			for(int y=0;y<2;y++) {
+				this.outputStream[y].writeChars("You are the player "+y+1);
 			}
-			table.add(players[turn].fiveGolds());
-			for(int x=0;x<2;x++) {
-				try {
-					this.outputStream[x].writeObject(table);
-					this.outputStream[turn].writeChars("---------------------");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			int i;
+			int turn=0;
+			boolean is=false;
+			b.deal(this.players, 2);
+			Card c=new Card(Stick.GOLDS,5);
+			while(turn<2 && !is) {
+				is=players[turn].hasCard(c);
+				if(!is) {
+					turn++;
 				}
 			}
-			if(turn==2-1) {
-				turn=0;
+			if(is) {
+				for(int y=0;y<2;y++) {
+					this.outputStream[y].writeBoolean(is);
+				}
+				i=turn+1;
+				for(int y=0;y<2;y++) {
+					this.outputStream[y].writeChars("Player "+i+" turn "+" , it starts with the 5 of golds:");
+				}
+				table.add(players[turn].fiveGolds());
+				for(int x=0;x<2;x++) {
+					this.outputStream[x].writeObject(table);
+			    }
+				if(turn==1) {
+					turn=0;
+				}else {
+					turn++;
+				}
 			}else {
-				turn++;
+				Random r=new Random();
+				int a=r.nextInt(1);
+				turn=a;
 			}
-		}else {
-			Random r=new Random();
-			int a=r.nextInt(2-1);
-			turn=a;
+			this.continueGame(turn,2,table,b);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		this.continueGame(turn,2,table,b);
 	}
 	
 	public void continueGame(int turn,int playrs,Table table,Deck b) {
-		//PRE: The game must be started, turn is the turn of the player that plays now and playrs the number of players.
-		//POS: Players put cards on the deck, following the rules of cinquillo, 
-		//			until someone runs out of cards, who is the winner.
+		try {
 		Card c=new Card();
 		boolean end=false;
 		while(!end) {
 			int x=turn+1;
-			this.outputStream[turn].writeChars("Player "+x+" turn:");
+			for(int y=0;y<2;y++) {
+				this.outputStream[y].writeChars("Player "+x+" turn:");
+			}
 			this.outputStream[turn].writeObject(this.players[turn]);
-			c=(Card)this.inputStream[turn].readObject();
+			if(this.players[turn].canPlay(table)) {				
+				c=(Card)this.inputStream[turn].readObject();
+			}else {
+				c=null;
+			}
 			if(c==null) {
+				this.outputStream[turn].writeObject(b);
 				if(b.numCards()!=0) {
-					this.outputStream[turn].writeObject(b);
-					this.players[turn].steal(this.deck);
-					System.out.println("You take a card of the deck.");
-					System.out.println(" ");
+					this.players[turn]=(Player) this.inputStream[turn].readObject();
 				}
 			}else {
-				this.table.add(c);
+				table.add(c);
+				this.players[turn]=(Player) this.inputStream[turn].readObject();
 				end=this.players[turn].ended();
+				this.outputStream[turn].writeBoolean(end);
 			}
 			if(!end)
 				turn++;
 			if(turn==playrs && !end)
 				turn=0;
-			this.table.show();
-			System.out.println("---------------------");
+			for(int y=0;y<2;y++) {
+				this.outputStream[y].writeObject(table);
+			}
 		}
 		int x=turn+1;
 		System.out.println("Player "+ x + " wins");
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
