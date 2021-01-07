@@ -21,8 +21,8 @@ import p1.Table;
 public class ManejadorClientes implements Runnable{
 	
 	private Socket[] socket;
-	private ObjectInputStream[] inputStream;
-	private ObjectOutputStream[] outputStream;
+	private ObjectInputStream[] inputStream=new ObjectInputStream[2];
+	private ObjectOutputStream[] outputStream=new ObjectOutputStream[2];
 	private Player[] players;
 	
 	public ManejadorClientes(Socket[]  socket) throws IOException{
@@ -72,7 +72,7 @@ public class ManejadorClientes implements Runnable{
 				this.players[i]=j;
 			}
 			for(int y=0;y<2;y++) {
-				this.outputStream[y].writeChars("You are the player "+y+1);
+				this.outputStream[y].writeBytes("You are the player "+y+1);
 			}
 			int i;
 			int turn=0;
@@ -91,7 +91,7 @@ public class ManejadorClientes implements Runnable{
 				}
 				i=turn+1;
 				for(int y=0;y<2;y++) {
-					this.outputStream[y].writeChars("Player "+i+" turn "+" , it starts with the 5 of golds:");
+					this.outputStream[y].writeBytes("Player "+i+" turn "+" , it starts with the 5 of golds:");
 				}
 				table.add(players[turn].fiveGolds());
 				for(int x=0;x<2;x++) {
@@ -121,7 +121,7 @@ public class ManejadorClientes implements Runnable{
 		while(!end) {
 			int x=turn+1;
 			for(int y=0;y<2;y++) {
-				this.outputStream[y].writeChars("Player "+x+" turn:");
+				this.outputStream[y].writeBytes("Player "+x+" turn:");
 			}
 			this.outputStream[turn].writeObject(this.players[turn]);
 			if(this.players[turn].canPlay(table)) {				

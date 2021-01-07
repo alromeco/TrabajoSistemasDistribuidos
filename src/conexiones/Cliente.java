@@ -3,8 +3,10 @@ package conexiones;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -22,7 +24,9 @@ public class Cliente {
 	public Cliente() {
 		try {
 			this.socket=new Socket("localhost",5000);
+			System.out.println("Constructor1");
 			this.inputStream=new ObjectInputStream(this.socket.getInputStream());
+			System.out.println("Constructor2");
 			this.outputStream=new ObjectOutputStream(this.socket.getOutputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -32,8 +36,9 @@ public class Cliente {
 	public void opcionServidor(int i) {
 		try {
 			this.outputStream.writeInt(i);
-			int x=this.inputStream.read();
+			int x=this.inputStream.readInt();
 			if(x==1) {
+				System.out.println("Jugar");
 				this.jugar();
 			}
 		} catch (IOException e) {
