@@ -94,4 +94,13 @@ public abstract class Player {
 		}
 		return s;
 	}
+	
+	public Card chooseCard(Table t, int i) {
+		this.numCards--;
+		return this.cards.remove(i - 1);
+	}
+	
+	public boolean canPlayCard(Table t, int i) {
+		return t.canPlay(this.cards.get(i));
+	}
 }
