@@ -87,9 +87,10 @@ public abstract class Player {
 	public void show() {
 		//PRE: Player must be created.
 		//POS: Shows the list of cards of the Player.
+		String s="";
 		for(int i=0;i<this.cards.size();i++) {
 			int x=i+1;
-			System.out.println("Card number "+ x);
+			s=s+"Card number "+ x+"\r\n";
 			this.cards.get(i).show();
 		}
 	}

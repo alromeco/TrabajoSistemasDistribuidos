@@ -30,10 +30,10 @@ public class Card {
 		return this.number;
 	}
 	
-	public void show() {
+	public String show() {
 		//PRE: The card must be already created.
 		//POS: It shows the card.
-		System.out.println("[ "+this.number+" of "+this.stick+" ]");	
+		return("[ "+this.number+" of "+this.stick+" ]");	
 	}
 	
 }

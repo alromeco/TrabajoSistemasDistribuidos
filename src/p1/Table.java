@@ -107,21 +107,23 @@ public class Table {
 		}
 	}
 	
-	public void show() {
+	public String show() {
 		//PRE: The table must be already created.
 		//POS: It shows the cards on the table, ordered by sticks.
-		System.out.println("Table:");
+		String s;
+		s="Table:\r\n";
 		for(Card c: this.clubs) {
-			c.show();
+			s=s+c.show()+"\r\n";
 		}
 		for(Card c:this.swords) {
-			c.show();
+			s=s+c.show()+"\r\n";
 		}
 		for(Card c:this.golds) {
-			c.show();
+			s=s+c.show()+"\r\n";
 		}
 		for(Card c:this.cups) {
-			c.show();
+			s=s+c.show()+"\r\n";
 		}
+		return s;
 	}
 }
