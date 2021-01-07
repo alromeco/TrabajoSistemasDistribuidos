@@ -65,12 +65,14 @@ public class Deck {
 		return this.numCards;
 	}
 		
-	public void show() {
+	public String show() {
 		//PRE: The deck must be already created.
 		//POS: It shows the cards of the deck.
+		String s="";
 		for(int i=0;i<this.numCards();i++) {
-			this.cards[i].show();
+			s=s+this.cards[i].show()+"\r\n";
 		}
+		return s;
 	}
 	public void deal(Player[] p,int players) {
 		//PRE: The deck must be already created., j is an array of players and players is the number of players.
