@@ -21,15 +21,15 @@ import p1.Table;
 public class ManejadorClientes implements Runnable{
 	
 	private Socket[] socket;
-	private ObjectInputStream[] inputStream=new ObjectInputStream[2];
-	private ObjectOutputStream[] outputStream=new ObjectOutputStream[2];
-	private Player[] players;
+	private DataInputStream[] inputStream=new DataInputStream[2];
+	private DataOutputStream[] outputStream=new DataOutputStream[2];
+	private Player[] players=new Player[2];
 	
 	public ManejadorClientes(Socket[]  socket) throws IOException{
 		this.socket=socket;
 		for(int i=0;i<2;i++) {
-			this.inputStream[i]=new ObjectInputStream(this.socket[i].getInputStream());
-			this.outputStream[i]=new ObjectOutputStream(this.socket[i].getOutputStream());
+			this.inputStream[i]=new DataInputStream(this.socket[i].getInputStream());
+			this.outputStream[i]=new DataOutputStream(this.socket[i].getOutputStream());
 			}
 		}
 	
@@ -65,6 +65,7 @@ public class ManejadorClientes implements Runnable{
 	private void jugar() {
 		try {
 			Deck b=new Deck();
+			int jug;
 			b.startDeck();
 			Table table=new Table();
 			for(int i=0;i<2;i++) {
@@ -72,7 +73,8 @@ public class ManejadorClientes implements Runnable{
 				this.players[i]=j;
 			}
 			for(int y=0;y<2;y++) {
-				this.outputStream[y].writeBytes("You are the player "+y+1);
+				jug=y+1;
+				this.outputStream[y].writeBytes("You are the player "+jug+"\r\n");
 			}
 			int i;
 			int turn=0;
@@ -85,17 +87,17 @@ public class ManejadorClientes implements Runnable{
 					turn++;
 				}
 			}
+			for(int y=0;y<2;y++) {
+				this.outputStream[y].writeBoolean(is);
+			}
 			if(is) {
-				for(int y=0;y<2;y++) {
-					this.outputStream[y].writeBoolean(is);
-				}
 				i=turn+1;
 				for(int y=0;y<2;y++) {
-					this.outputStream[y].writeBytes("Player "+i+" turn "+" , it starts with the 5 of golds:");
+					this.outputStream[y].writeBytes("Player "+i+" turn "+" , it starts with the 5 of golds: \r\n");
 				}
 				table.add(players[turn].fiveGolds());
 				for(int x=0;x<2;x++) {
-					this.outputStream[x].writeObject(table);
+					this.outputStream[x].writeBytes(table.show());
 			    }
 				if(turn==1) {
 					turn=0;
@@ -116,27 +118,39 @@ public class ManejadorClientes implements Runnable{
 	
 	public void continueGame(int turn,int playrs,Table table,Deck b) {
 		try {
-		Card c=new Card();
 		boolean end=false;
+		Card card=null;
 		while(!end) {
 			int x=turn+1;
 			for(int y=0;y<2;y++) {
-				this.outputStream[y].writeBytes("Player "+x+" turn:");
+				this.outputStream[y].writeBytes("Player "+x+" turn: \r\n");
 			}
-			this.outputStream[turn].writeObject(this.players[turn]);
-			if(this.players[turn].canPlay(table)) {				
-				c=(Card)this.inputStream[turn].readObject();
+			this.outputStream[turn].writeBytes(this.players[turn].show());
+			boolean juega=this.players[turn].canPlay(table);
+			this.outputStream[turn].writeBoolean(juega);
+			Integer c;
+			if(!juega) {
+				c=this.inputStream[turn].readInt();
+				juega=this.players[turn].canPlayCard(table,c);
+				this.outputStream[turn].writeBoolean(juega);
+				while(juega){
+					c=this.inputStream[turn].readInt();
+					juega=this.players[turn].canPlayCard(table,c);
+					this.outputStream[turn].writeBoolean(juega);
+				}
+				card=this.players[turn].chooseCard(table,c);
 			}else {
 				c=null;
 			}
 			if(c==null) {
-				this.outputStream[turn].writeObject(b);
-				if(b.numCards()!=0) {
-					this.players[turn]=(Player) this.inputStream[turn].readObject();
+				juega=b.numCards()!=0;
+				this.outputStream[turn].writeBoolean(juega);
+				if(juega) {
+					this.players[turn].steal(b);
+					this.outputStream[turn].writeBytes(this.players[turn].show());
 				}
 			}else {
-				table.add(c);
-				this.players[turn]=(Player) this.inputStream[turn].readObject();
+				table.add(card);
 				end=this.players[turn].ended();
 				this.outputStream[turn].writeBoolean(end);
 			}
@@ -145,15 +159,12 @@ public class ManejadorClientes implements Runnable{
 			if(turn==playrs && !end)
 				turn=0;
 			for(int y=0;y<2;y++) {
-				this.outputStream[y].writeObject(table);
+				this.outputStream[y].writeBytes(table.show());
 			}
 		}
 		int x=turn+1;
 		System.out.println("Player "+ x + " wins");
 		}catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

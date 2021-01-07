@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 import p1.Deck;
 import p1.Player;
@@ -16,18 +17,24 @@ import p1.Table;
 
 public class Cliente {
 	private Socket socket;
-	private ObjectInputStream inputStream;
-	private ObjectOutputStream outputStream;
-	private Table table;
-	private Deck b;
-	private Player p;
+	private DataInputStream inputStream;
+	private DataOutputStream outputStream;
+	public static void main(String[] args) {
+		Cliente c=new Cliente();
+		Scanner sc= new Scanner(System.in);
+		int i=0;
+		while(i !=2) {
+			System.out.println("1.Jugar");
+			System.out.println("2.Salir");
+			i=sc.nextInt();
+			c.opcionServidor(i);
+		}
+	}
 	public Cliente() {
 		try {
 			this.socket=new Socket("localhost",5000);
-			System.out.println("Constructor1");
-			this.inputStream=new ObjectInputStream(this.socket.getInputStream());
-			System.out.println("Constructor2");
-			this.outputStream=new ObjectOutputStream(this.socket.getOutputStream());
+			this.inputStream=new DataInputStream(this.socket.getInputStream());
+			this.outputStream=new DataOutputStream(this.socket.getOutputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,37 +55,41 @@ public class Cliente {
 	}
 	public void jugar() {
 		try {
+			boolean juega;
+			Scanner sc= new Scanner(System.in);
 			System.out.println(this.inputStream.readLine());
 			if(this.inputStream.readBoolean()) {
 				System.out.println(this.inputStream.readLine());
 			}
-			this.table=(Table) this.inputStream.readObject();
-			this.table.show();
+			System.out.println(this.inputStream.readLine());
 			System.out.println("------------------");
 			boolean end=false;
 			while(!end) {
 				System.out.println(this.inputStream.readLine());
-				this.p=(Player) this.inputStream.readObject();
-				if(this.p.canPlay(table)) {
-					this.outputStream.writeObject(p.chooseCard(table));
-					this.outputStream.writeObject(this.p);
+				System.out.println(this.inputStream.readLine());
+				if(this.inputStream.readBoolean()) {
+					int c=sc.nextInt();
+					this.outputStream.writeInt(c);
+					juega=this.inputStream.readBoolean();
+					while(!juega) {
+						System.out.println("That card can not be played, choose other: ");
+						c=sc.nextInt();
+						this.outputStream.writeInt(c);
+						juega=this.inputStream.readBoolean();
+					}
 					end=this.inputStream.readBoolean();
 				}else {
-					this.b=(Deck) this.inputStream.readObject();
-					if(b.numCards()!=0) {
-						this.p.steal(b);
+					juega=this.inputStream.readBoolean();
+					if(juega) {
 						System.out.println("You take a card of the deck.");
 						System.out.println(" ");
-						this.outputStream.writeObject(this.p);
+						System.out.println(this.inputStream.readLine());
 					}
 				}
-				this.table=(Table) this.inputStream.readObject();
-				this.table.show();
+				System.out.println(this.inputStream.readLine());
+				System.out.println("------------------");	
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
