@@ -114,7 +114,8 @@ public class Cliente {
 				}
 				System.out.println("------------------");
 			}
-			System.out.println(this.inputStream.readLine());
+			System.out.println(end);
+			System.out.println("hola"+this.inputStream.readLine());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

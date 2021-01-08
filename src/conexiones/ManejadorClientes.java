@@ -138,7 +138,10 @@ public class ManejadorClientes implements Runnable{
 			Integer c;
 			if(juega) {
 				c=this.inputStream[turn].readInt();
-				juega=this.players[turn].canPlayCard(table,c);
+				juega=false;
+				if(c<=this.players[turn].numCards()) {
+					juega=this.players[turn].canPlayCard(table,c);
+				}
 				this.outputStream[turn].writeBoolean(juega);
 				while(!juega){
 					c=this.inputStream[turn].readInt();
