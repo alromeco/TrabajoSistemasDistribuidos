@@ -75,6 +75,7 @@ public class ManejadorClientes implements Runnable{
 			for(int y=0;y<2;y++) {
 				jug=y+1;
 				this.outputStream[y].writeBytes("You are the player "+jug+"\r\n");
+				
 			}
 			int i;
 			int turn=0;
@@ -97,7 +98,8 @@ public class ManejadorClientes implements Runnable{
 				}
 				table.add(players[turn].fiveGolds());
 				for(int x=0;x<2;x++) {
-					this.outputStream[x].writeBytes(table.show());
+					this.outputStream[x].writeBytes(table.show()+"-1\r\n");
+							System.out.println(table.show());
 			    }
 				if(turn==1) {
 					turn=0;
@@ -124,18 +126,25 @@ public class ManejadorClientes implements Runnable{
 			int x=turn+1;
 			for(int y=0;y<2;y++) {
 				this.outputStream[y].writeBytes("Player "+x+" turn: \r\n");
+				if(y==turn) {
+					this.outputStream[y].writeBoolean(true);
+				}else {
+					this.outputStream[y].writeBoolean(false);
+				}
 			}
-			this.outputStream[turn].writeBytes(this.players[turn].show());
+			this.outputStream[turn].writeBytes(this.players[turn].show()+"-1\r\n");
 			boolean juega=this.players[turn].canPlay(table);
 			this.outputStream[turn].writeBoolean(juega);
 			Integer c;
-			if(!juega) {
+			if(juega) {
 				c=this.inputStream[turn].readInt();
 				juega=this.players[turn].canPlayCard(table,c);
 				this.outputStream[turn].writeBoolean(juega);
-				while(juega){
+				while(!juega){
 					c=this.inputStream[turn].readInt();
-					juega=this.players[turn].canPlayCard(table,c);
+					if(c<=this.players[turn].numCards()) {
+						juega=this.players[turn].canPlayCard(table,c);
+					}
 					this.outputStream[turn].writeBoolean(juega);
 				}
 				card=this.players[turn].chooseCard(table,c);
@@ -147,8 +156,7 @@ public class ManejadorClientes implements Runnable{
 				this.outputStream[turn].writeBoolean(juega);
 				if(juega) {
 					this.players[turn].steal(b);
-					this.outputStream[turn].writeBytes(this.players[turn].show());
-				}
+					this.outputStream[turn].writeBytes(this.players[turn].show()+"-1\r\n");				}
 			}else {
 				table.add(card);
 				end=this.players[turn].ended();
@@ -159,11 +167,13 @@ public class ManejadorClientes implements Runnable{
 			if(turn==playrs && !end)
 				turn=0;
 			for(int y=0;y<2;y++) {
-				this.outputStream[y].writeBytes(table.show());
+				this.outputStream[y].writeBytes(table.show()+"-1\r\n");
 			}
 		}
 		int x=turn+1;
-		System.out.println("Player "+ x + " wins");
+		for(int y=0;y<2;y++) {
+			this.outputStream[y].writeBytes("Player "+ x + " wins");
+		}
 		}catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

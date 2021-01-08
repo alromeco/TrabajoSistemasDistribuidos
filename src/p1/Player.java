@@ -101,6 +101,6 @@ public abstract class Player {
 	}
 	
 	public boolean canPlayCard(Table t, int i) {
-		return t.canPlay(this.cards.get(i));
+		return t.canPlay(this.cards.get(i-1));
 	}
 }

@@ -115,15 +115,19 @@ public class Table {
 		for(Card c: this.clubs) {
 			s=s+c.show()+"\r\n";
 		}
+		s=s+"\r\n";
 		for(Card c:this.swords) {
 			s=s+c.show()+"\r\n";
 		}
+		s=s+"\r\n";
 		for(Card c:this.golds) {
 			s=s+c.show()+"\r\n";
 		}
+		s=s+"\r\n";
 		for(Card c:this.cups) {
 			s=s+c.show()+"\r\n";
 		}
+		s=s+"\r\n";
 		return s;
 	}
 }
