@@ -159,23 +159,24 @@ public class ManejadorClientes implements Runnable{
 				this.outputStream[turn].writeBoolean(juega);
 				if(juega) {
 					this.players[turn].steal(b);
-					this.outputStream[turn].writeBytes(this.players[turn].show()+"-1\r\n");				}
+					this.outputStream[turn].writeBytes(this.players[turn].show()+"-1\r\n");				
+				}
 			}else {
 				table.add(card);
 				end=this.players[turn].ended();
-				this.outputStream[turn].writeBoolean(end);
 			}
 			if(!end)
 				turn++;
 			if(turn==playrs && !end)
 				turn=0;
 			for(int y=0;y<2;y++) {
+				this.outputStream[y].writeBoolean(end);
 				this.outputStream[y].writeBytes(table.show()+"-1\r\n");
 			}
 		}
 		int x=turn+1;
 		for(int y=0;y<2;y++) {
-			this.outputStream[y].writeBytes("Player "+ x + " wins");
+			this.outputStream[y].writeBytes("Player "+ x + " wins\r\n");
 		}
 		}catch (IOException e) {
 			// TODO Auto-generated catch block

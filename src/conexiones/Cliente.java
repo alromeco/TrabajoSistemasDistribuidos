@@ -26,11 +26,10 @@ public class Cliente {
 		int i = 0;
 		while (i != 2) {
 			System.out.println("1.Jugar");
-			System.out.println("2.Salir");
 			i = sc.nextInt();
 			c.opcionServidor(i);
-			System.out.println("hola");
 		}
+		
 	}
 
 	public Cliente() {
@@ -51,6 +50,11 @@ public class Cliente {
 			if (x == 1) {
 				System.out.println("Jugar");
 				this.jugar();
+			}
+			if(x==2) {
+				this.inputStream.close();
+				this.outputStream.close();
+				this.socket.close();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -106,6 +110,8 @@ public class Cliente {
 							}
 						}
 					}
+				}else {
+					end = this.inputStream.readBoolean();
 				}
 				s = this.inputStream.readLine();
 				while (!s.equals("-1")) {
@@ -114,8 +120,8 @@ public class Cliente {
 				}
 				System.out.println("------------------");
 			}
-			System.out.println(end);
-			System.out.println("hola"+this.inputStream.readLine());
+			System.out.println(this.inputStream.readLine());
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
