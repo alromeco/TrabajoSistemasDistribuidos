@@ -34,18 +34,15 @@ public class ManejadorClientes implements Runnable{
 		}
 	
 	public void run() {
-		boolean isConnected=true;
-		while (isConnected) {
-			try {
-				isConnected=this.elegirOpcion(isConnected);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			this.elegirOpcion();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
-	private boolean elegirOpcion(boolean isConnected) throws IOException {
+	private void elegirOpcion() throws IOException {
 		int i = this.inputStream[0].readInt();
 		int x = this.inputStream[1].readInt();
 		if(i==1 && x==1) {
@@ -54,10 +51,7 @@ public class ManejadorClientes implements Runnable{
 			}
 			this.jugar();
 			
-		} else {
-			isConnected=false;
 		}
-		return isConnected;
 			
 	}
 		

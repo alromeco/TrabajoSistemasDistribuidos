@@ -23,7 +23,8 @@ public class Servidor {
 			this.clientes[0]=cliente1;
 			this.clientes[1]=cliente2;
 			
-			new Thread(new ManejadorClientes(clientes)).start();
+			Thread t=new Thread(new ManejadorClientes(clientes));
+			t.start();
 		}
 	}
 }
