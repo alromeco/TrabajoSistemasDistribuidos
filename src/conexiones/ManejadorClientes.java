@@ -93,7 +93,6 @@ public class ManejadorClientes implements Runnable{
 				table.add(players[turn].fiveGolds());
 				for(int x=0;x<2;x++) {
 					this.outputStream[x].writeBytes(table.show()+"-1\r\n");
-							System.out.println(table.show());
 			    }
 				if(turn==1) {
 					turn=0;
