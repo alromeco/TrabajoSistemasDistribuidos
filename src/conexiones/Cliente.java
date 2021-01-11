@@ -25,7 +25,9 @@ public class Cliente {
 		Scanner sc = new Scanner(System.in);
 		int i = 0;
 		while (i != 2) {
+			//Para jugar o salir dos clientes deben estar conectados al servidor y haber elegido una opción.
 			System.out.println("1.Jugar");
+			System.out.println("2.Salir");
 			i = sc.nextInt();
 			c.opcionServidor(i);
 		}
@@ -71,7 +73,6 @@ public class Cliente {
 			if (this.inputStream.readBoolean()) {
 				System.out.println(this.inputStream.readLine());
 				s = this.inputStream.readLine();
-				//
 				while (!s.equals("-1")) {
 					System.out.println(s);
 					s = this.inputStream.readLine();

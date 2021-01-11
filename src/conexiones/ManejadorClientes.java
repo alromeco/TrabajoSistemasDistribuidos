@@ -50,6 +50,12 @@ public class ManejadorClientes implements Runnable{
 				this.outputStream[y].writeInt(1);
 			}
 			this.jugar();
+		}else {
+			if(i==2 || x==2) {
+				for(int y=0;y<2;y++) {
+					this.socket[y].close();
+				}
+			}
 			
 		}
 			
