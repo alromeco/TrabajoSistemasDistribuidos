@@ -3,17 +3,10 @@ package conexiones;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
-import p1.Deck;
-import p1.Player;
-import p1.Table;
+
 
 public class Cliente {
 	private Socket socket;
